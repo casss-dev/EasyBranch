@@ -13,7 +13,7 @@ struct EasyBranch: ParsableCommand {
 
     static let configuration = CommandConfiguration(
         abstract: "A tool to easily find and checkout git branches using fuzzy search",
-        version: "1.0.0"
+        version: "1.1.0"
     )
 
     @Argument(
