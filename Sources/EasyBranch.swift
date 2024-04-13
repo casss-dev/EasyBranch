@@ -75,7 +75,7 @@ struct EasyBranch: ParsableCommand {
     /// - Returns: An array of branch names
     func getBranches() throws -> [String] {
         let branches = try shell(
-            "git -P branch -a --format '%(refname:short)'",
+            "git -P branch -a --format '%(refname:short)' --sort=committerdate",
             at: repository
         )
             .trimmingCharacters(in: .whitespacesAndNewlines)
