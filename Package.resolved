@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "ansiterminal",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pakLebah/ANSITerminal.git",
+      "state" : {
+        "revision" : "8e24fab68c660eca1244a95019ec69a11400d62b",
+        "version" : "0.0.3"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "46989693916f56d1186bd59ac15124caef896560",
+        "version" : "1.3.1"
+      }
+    }
+  ],
+  "version" : 2
+}
