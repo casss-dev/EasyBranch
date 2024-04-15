@@ -74,6 +74,8 @@ struct EasyBranch: ParsableCommand {
     /// Gets local and remote branches matching the `search` argument
     /// - Returns: An array of branch names
     func getBranches() throws -> [String] {
+        let currentBranch = try shell("git branch --show-current", at: repository)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
         let branches = try shell(
             "git -P branch -a --format '%(refname:short)' --sort=committerdate",
             at: repository
@@ -83,7 +85,7 @@ struct EasyBranch: ParsableCommand {
             .split(separator: "\n")
             .unique
             .map(String.init)
-            .filter { $0 != "HEAD" }
+            .filter { $0 != "HEAD" && $0 != currentBranch }
 
         if !search.isEmpty {
             return branches.filter {

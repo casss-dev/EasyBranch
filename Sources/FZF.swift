@@ -30,7 +30,8 @@ private func render(
 ) -> Int? {
     // Clear below the start of when fzf was called
     restoreCursorPosition()
-    clearBelow()
+    clearScreen()
+    var (screenHeight, _) = readScreenSize()
     guard !options.isEmpty else { return nil }
     // Add a tick mark for style
     var options = options.map { "- \($0)" }
@@ -47,8 +48,11 @@ private func render(
     // Write a prompt if there is one 
     if let prompt {
         writeln(prompt.bold.blue)
+        screenHeight -= 1 // one for prompt
     }
-    write(options.joined(separator: "\n"))
+    screenHeight -= 1 // one for field
+    // Limit the number of options that can appear on screen
+    write(options.dropFirst(byLimit: screenHeight).joined(separator: "\n"))
     moveLineDown()
     write("> \(field)")
 
@@ -107,5 +111,15 @@ func fzf(prompt: String? = nil, options: [String]) -> String? {
             options: options,
             field: field
         )
+    }
+}
+
+private extension Collection {
+
+    func dropFirst(byLimit limit: Int) -> [Element] {
+        if count > limit {
+            return Array(self.dropFirst(count - limit))
+        }
+        return Array(self)
     }
 }
